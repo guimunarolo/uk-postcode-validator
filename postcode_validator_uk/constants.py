@@ -9,7 +9,7 @@ from .rules import (
     SecondLetter,
     SingleDigitDistrict,
     ThirdLetter,
-    ZeroOrTenDistrict,
+    ZeroDistrict,
 )
 
 UK_POSTCODE_VALIDATION_REGEX = re.compile(r"^([A-Z]{1,2}[0-9][A-Z0-9]?) *([0-9][A-Z]{2})$")
@@ -26,5 +26,5 @@ UK_POSTCODE_RULES_LIST = (
     SecondLetter,
     SingleDigitDistrict,
     ThirdLetter,
-    ZeroOrTenDistrict,
+    ZeroDistrict,
 )

@@ -14,7 +14,7 @@ from postcode_validator_uk.rules import (
     SecondLetter,
     SingleDigitDistrict,
     ThirdLetter,
-    ZeroOrTenDistrict,
+    ZeroDistrict,
 )
 
 SINGLE_DIGIT_DISTRICTS_AREAS = (
@@ -35,7 +35,7 @@ SINGLE_DIGIT_DISTRICTS_AREAS = (
     "ZE",
 )
 DOUBLE_DIGIT_DISTRICTS_AREAS = ("AB", "LL", "SO")
-ZERO_OR_TEN_DISTRICTS_AREAS = ("BL", "BS", "CM", "CR", "FY", "HA", "PR", "SL", "SS")
+ZERO_DISTRICTS_AREAS = ("BL", "BS", "CM", "CR", "FY", "HA", "PR", "SL", "SS")
 
 
 class TestPostcodeRule:
@@ -136,29 +136,19 @@ class TestDoubleDigitDistrict:
             rule.validate()
 
 
-class TestZeroOrTenDistrict:
-    @pytest.mark.parametrize("area", ZERO_OR_TEN_DISTRICTS_AREAS)
-    def test_validating_valid_postcode_with_ditrict_zero(self, area):
+class TestZeroDistrict:
+    @pytest.mark.parametrize("area", ZERO_DISTRICTS_AREAS)
+    def test_validating_valid_postcode_with_district_zero(self, area):
         postcode = mock.Mock(outward=f"{area}0")
-        rule = ZeroOrTenDistrict(postcode)
+        rule = ZeroDistrict(postcode)
 
         assert rule.validate() is None
 
-    @pytest.mark.parametrize("area", ZERO_OR_TEN_DISTRICTS_AREAS)
-    def test_validating_valid_postcode_with_district_ten_only_with_BS(self, area):
-        postcode = mock.Mock(outward=f"{area}10")
-        rule = ZeroOrTenDistrict(postcode)
 
-        if area == "BS":
-            assert rule.validate() is None
-        else:
-            with pytest.raises(InvalidPostcode):
-                rule.validate()
-
-    @pytest.mark.parametrize("area", ZERO_OR_TEN_DISTRICTS_AREAS)
+    @pytest.mark.parametrize("area", ZERO_DISTRICTS_AREAS)
     def test_invalidating_when_not_valid_area_has_zero(self, area):
         postcode = mock.Mock(outward=f"AA0")
-        rule = ZeroOrTenDistrict(postcode)
+        rule = ZeroDistrict(postcode)
 
         with pytest.raises(InvalidPostcode):
             rule.validate()

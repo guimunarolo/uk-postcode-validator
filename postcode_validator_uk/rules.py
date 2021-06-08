@@ -42,15 +42,15 @@ class DoubleDigitDistrict(PostcodeRule):
     rule_regex = re.compile(r"^[A-Z]{2}[0-9]{2}$")
 
 
-class ZeroOrTenDistrict(PostcodeRule):
+class ZeroDistrict(PostcodeRule):
     """
     Areas with a district '0' (zero): BL, BS, CM, CR, FY, HA, PR, SL, SS
     (BS is the only area to have both a district 0 and a district 10)
     """
 
     attr_applied = "outward"
-    applied_areas_regex = re.compile(r"^[A-Z]{2}(0|10)$")
-    rule_regex = re.compile(r"^(BL|BS|CM|CR|FY|HA|PR|SL|SS)0$|^BS10$")
+    applied_areas_regex = re.compile(r"^[A-Z]{2}0$")
+    rule_regex = re.compile(r"^(BL|BS|CM|CR|FY|HA|PR|SL|SS)0$")
 
 
 class CentralLondonDistrict(PostcodeRule):
